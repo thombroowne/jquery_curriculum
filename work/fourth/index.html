@@ -47,6 +47,14 @@
     </div>
     <script src="../../common/js/jquery.js"></script>
     <script>
+
+    $(".menu__list li").hover(function(){//hoverを使い隠れているメニューを表示
+      //離れると非表示
+        $(this).children("ul").stop().slideDown("slow");//指定した要素集合から、現在動作中のアニメーション処理を全て中止します。
+
+      }, function(){
+        $(this).children("ul").stop().slideUp("slow");
+      });
       // 今回やるのはドロップメニューです。
       // メニューをhoverすると隠れている中のメニューが表示され、メニューから離れると中のメニューが非表示されるプログラムです。
       // [使用するメソッド]

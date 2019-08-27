@@ -21,6 +21,38 @@
     </div>
     <script src="../../common/js/jquery.js"></script>
     <script>
+    $(function(){
+
+      var text_max = 30;
+      $(".rest-count").text(text_max - $(".input").val().length);
+//lengthプロパティは元々JavaScriptにて標準で用意されているもので、文字列の長さや配列の要素数などを取得するためのプロパティです。
+///lengthはプロパティであり、メソッドではないため、lengthの後ろにカッコ()を付けないということを覚えておきましょう。
+
+      $("input").on("keydown keyup keypress change",function(){
+        var text_length = $(this).val().length;
+        var countdown = text_max - text_length;
+        $(".rest-count").text(countdown);
+//KeyDown イベントは、実行中のフォームまたはそのフォーム上のコントロールにフォーカスがある状態でキーを押したときに発生します。
+// キーを離すまで KeyDown イベントと KeyPress イベントが交互に発生し、キーを離すと KeyUp イベントが発生します。
+//change??
+
+        if(countdown < 0){
+            $(".rest-count").css({
+                 color:"#ff0000",
+                 fontWeight:"bold"
+            });
+            //if (条件式) {
+            //trueの場合の処理
+            //}
+        }else {
+          $(".rest-count").css({
+               color:"#000000",
+            fontWeight:"normal"
+          });
+        }
+    });
+  });
+
       // 今回やるのは文字数チェッカーです。
       // .input に文字を入力し、文字を入力した段階でその文字数に応じて .rest-count の値が減っていき、最大文字数である30文字以上入力すると .rest-count に .red クラスが追加されて文字色が赤くなり、30文字以内になると、.red クラスが外れ、文字色が元に戻る。（ちなみに改行は文字数に含まない。）
       // .keyup() 文字入力後に発火されるイベントです。
@@ -29,4 +61,3 @@
     </script>
   </body>
 </html>
-

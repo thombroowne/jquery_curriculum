@@ -15,6 +15,24 @@
     </div>
     <script src="../../common/js/jquery.js"></script>
     <script>
+
+    $.ajax({
+      url: './data.json'
+    })
+    .done(function(data) {
+      console.log(data)
+      var data =JSON.parse(data);//JSONオブジェクトをパースするメソッド
+       console.log(data);
+
+        var list=""
+        $.each(data.colorsArray, function(index,value){
+          console.log(index, value);
+            // $('.colorList').html('<li class="colorList__item"> '+' <p class="colorList__title" style="background-color:'+value.hexValue+';"> '+ value.colorName +' </p> '+' </li>');
+            list += '<li class="colorList__item"> '+' <p class="colorList__title" style="background-color:'+value.hexValue+';"> '+ value.colorName +' </p> '+' </li>'
+        });
+        console.log(list)
+         $('.colorList').html(list);
+      });
       // [使うメソッド]
       // $.each(配列, function functionName() {}) 配列に対しての繰り返し処理
       // .html() 要素の中に引数を代入する。（まずは.append() でやってみましょう）

@@ -26,6 +26,39 @@
     </div>
     <script src="../../common/js/jquery.js"></script>
     <script>
+    var slide = $('.slider-list').children('li');　//ここは単にたくさん使うから変数化してるだけ
+   var slideWidth = slide.width(); //要素の幅を取得
+   var slideLength = slide.length; //要素の数を取得
+   var slideTotalWidth = slideWidth * slideLength //画像のpositionを取得するために、全部の要素の合計の幅を取得してる
+   var slideIndex = slide.index(); //要素のindexを取得する
+   var slideList = []; //空の配列の作成
+   for (var i = 0; i < slideLength; i++) {
+       slideList[i] = slideWidth * (slideIndex + i); //画像のそれぞれのpositionを配列に格納してる
+   }
+
+   $('.slider-ctrl-btn').click(function () {
+       var selector = $(this).data('ctrl'); //prevかnextが押されたらそのdata属性を取得する
+       if (selector === 'next') { //nextをクリックした際の挙動
+           if (slideIndex >= slideLength - 1) {
+               slideIndex = 0; //画像が右端まで来たら、一番左の画像を表示したいので、indexの指定を0にしてあげる。
+           } else {
+               slideIndex += 1; //スライドが途中なら1を足す
+           }
+           $('.slider-list').animate({
+               left: -slideList[slideIndex] //先ほど配列に入れたpositionをindexで指定して移動させる
+           }, 500); //第二引数に指定したm秒で移動する 
+       } else if (selector === 'prev') {
+           if (slideIndex <= 0) {
+               slideIndex = slideLength - 1;  //要素の総数から1を引いた数。indexが3までしかないから
+           } else {
+               slideIndex -= 1;  //こちらは左に動かすので1を引く
+           }
+           $('.slider-list').animate({
+               left: -slideList[slideIndex]
+           }, 500);
+       }
+   });
+
       // 今回やるのはスライドショーです。
       // 右方向には右のボタンを押すと移動し、左方向には左のボタンを押すと移動する。また右端にいる状態で右のボタンを押すと最初の位置に戻り、 左端にいる状態で左のボタンを押すと最後の位置に移動する。data属性にprev,nextを記述してあるのでこちらを取得すると楽です。
       // 位置情報は配列に格納しておき、右のボタンをクリックするたびに配列の添字を1追加し、左のボタンをクリックすると配列の添字を1減らします。そうすることによって次の座標が取得できます。その座標にアニメーションさせるととても楽です。

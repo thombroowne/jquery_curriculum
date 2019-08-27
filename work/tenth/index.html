@@ -65,7 +65,72 @@
       //    </a>
       //  </div>
       // </li>
-      //
+      // $(function() {
+    //グローバル変数
+    var pageNum = 0;
+    var searchword = '';
+    var prevword = '';//前のワードの空の変数
+    $('#js-search-button').on('click', function() {//クリックされた時に実行される
+     searchword = searchButton();
+     pageNum = countUp();
+    // console.log(pageNums);
+    console.log(searchword);
+    console.log(prevword);
+    execAjax();//execAjaxの実行
+
+    function countUp() {
+      pageNum = pageNum + 1;
+      return pageNum;//+になった値が上に返る
+    }
+
+    function searchButton() {
+// '#js-search-button'がクリックされたとき,検索した名前の取得の処理がここに書かれている
+      var search = $('#js-search-word').val();
+    // console.log(searchword);
+      return search
+    }
+
+    if(prevword !== searchword) {//一致しなかった場合の処理
+        $('ul').empty(); // 違うワードが検索された時にulの中身を空にする
+        pageNum = 1;
+        prevword = searchword;//検索された前の値を取得
+      }
+      });
+
+    function execAjax () {//検索したワードに関連した本のデータを取得する処理
+      console.log(searchword);
+      console.log(pageNum);
+        $.ajax({
+          url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20130522',//楽天APIにアクセス
+          type: 'GET',//取得
+          datatype: 'json',//形式
+          data: {
+            // 「区分:サービス固有パラメーター」を確認して、必要な情報をdata内に入れましょう。
+            applicationId: '1019399324990976605',
+            booksGenreId: '001',
+            hits: 20,
+            page: pageNum,//変数になる
+            keyword: searchword
+          },
+  }).done(function(data) {
+    console.log(data.Items);
+    console.log(data.page);
+        var template =''
+        $.each(data.Items, function(i,item) {
+              template += '<li class='+'lists__item'+'>'+
+                 '<div class='+'lists__item__inner'+'>'+
+                 '<a href='+' class='+'lists__item__link'+' target='+'_blank'+'>'+
+                 '<img src='+ item.Item.mediumImageUrl +' class='+'lists__item__img'+' alt='+'>'+
+                 '<p class='+'lists__item__detail'+'>作品名：'+ data.Items[i].Item.title +'</p>'+
+                 '<p class='+'lists__item__detail'+'>作者　：'+ data.Items[i].Item.author +'</p>'+
+                 '<p class='+'lists__item__detail'+'>出版社：'+ data.Items[i].Item.publisherName +'</p>'+
+                 '</a>'+'</div>'+'</li>';
+               });
+                 
+              $('.lists').prepend(template);//prepend先頭へ挿入する
+           });
+      }
+
       //
       //
     </script>

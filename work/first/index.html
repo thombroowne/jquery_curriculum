@@ -70,15 +70,106 @@
 <script src="../../common/js/jquery.js"></script>
 <script>
 // 第1問  id='q1'の要素の文字色を赤色にせよ。
+$(function() {
+
+  $('#q1').css('color', 'red');
+
 // 第2問  id='q2'の要素をクリックしたら背景色をピンクにせよ。
+$('#q2').click(function() {
+  $(this).css('background-color', 'cadetblue');
+});
+//click（） メソッドの基本的な機能、引数に関数を指定する方法
+//クリックでイベント処理　ボタン要素をクリックした時に任意の関数を実行
+//{対象要素.click(関数)}　引数へクリック後に実行したい関数指定
+
 // 第3問  id='q3'の要素をクリックしたら2秒かけてフェードアウトさせよ。
+$('#q3').click(fadeOut);
+function fadeOut() {
+  $(this).fadeOut(2000);
+}
+//html要素を少しずつアニメショーンさせながら非表示にすることができるメソッド
+//またミリ秒を設定して細かい動き調整可能
+//引数には時間設定、時間は必ずミリ秒設定
+//対象要素が複数あっても同じように動作するのが特徴
+
 // 第4問  id='q4'の要素をクリックしたらこの要素の前後とこの要素内の前後にテキストを挿入せよ。
+
+$('#q4').click(function() {
+  $(this).prepend('DOMの中の前')
+         .append('DOMの中の後')
+         .before('DOMの前')
+         .after('DOMの後');
+});
+
 // 第5問  id='q5'の要素をクリックしたらこの要素にlargeというクラスを付与せよ。
+$('#q5').click(function() {
+  $(this).addClass('large');
+});
+//「$(this)」のようにセレクタ指定することでthisを指定して
+//「addClass(’large’)」と記述することでclass属性を追加することができる
+//実行すると、テキスト文字が大きく変化する
+
 // 第6問  id='q6'の要素をクリックしたらこの要素を2秒かけてmargin-topとmargin-leftを100pxの位置に移動させよ。
+
+$('#q6').click(function() {
+  $(this).animate({
+    'marginLeft': 100,
+    'marginTop': 100
+  }, 2000);
+});
+//ボタンをクリックするとアニメーションが始まる.
+//marginLeftを指定することで、横に動く
+//あらかじめ、CSSでターゲットに対してpositionプロパティを指定していればtop,leftなどのプロパティも使用できます。
+//ミリ秒以外では「normal」「slow」「fast」　といった文字列でも指定可能
+
 // 第7問  id='q7'の子要素をクリックしたら、その要素のインデックス（何番目か）をconsole.log()とalert()を用いて表示させよ。
+
+  $('#q7').find('li').click(function() {
+    var targetNum = $(this).index();
+    console.log(targetNum);
+    alert(targetNum);
+  });
+//「find()」は、対象となる要素から下にある階層をすべて辿って目的の「子要素」を取得することができるメソッドです
+// 対象要素.find( 目的の要素 ) 】のように引数へ取得したい要素のタグ・属性を指定します。
+//子孫要素…つまり「liタグ」が見つかるまでどんどん階層下を辿って検出できるという点です
+//alert(‘表示させたい文字列、値’);
+
 // 第8問  id='q8'の要素をhoverしたらlargeというクラスを付与し、hoverが外れたら、クラスを削除せよ。
+$('#q8').hover(function() {
+  $(this).addClass('large');
+}, function() {
+  $(this).removeClass('large');
+});
+
+//hover() は特定のHTML要素内にマウスカーソルが重なっているかどうかを判断することができます。
+//【 対象要素.hover( 関数１, 関数２ ) 】のように引数へ関数を指定
+//「関数１」が対象要素とマウスカーソルが重なった時の処理で、「関数２」が離れた時の処理を記述
+//「addClass(’large’)」と記述することでclass属性を追加することができる
+//「removeClass()」は、HTML要素の「class属性」に付与されたクラスを削除することができるメソッド
+
+
+
 // 第9問  id='q9'の要素をクリックしたらこの要素に設定してあるdata属性をconsoleに表示せよ。
+$('#q9').click(function() {
+  var text = $(this).data('text');
+  console.log(text);
+});
+
 // 第10問 id='q10'の子要素をクリックしたら、その要素のインデックスと等しいid='q11'の子要素にlargeというクラスを追加せよ。
+
+  $('#q10').find('li').click(function() {
+    var num = $(this).index();
+    $('#q11').find('li').eq(num).addClass('large');
+  });
+
+});
+////「find()」は、対象となる要素から下にある階層をすべて辿って目的の「子要素」を取得することができるメソッドです
+// 対象要素.find( 目的の要素 ) 】のように引数へ取得したい要素のタグ・属性を指定します。
+//「eq()」は、複数のHTML要素の中からインデックス番号を指定することで特定の要素だけを取得
+////「addClass(’large’)」と記述することでclass属性を追加することができます。
+//実行すると、テキスト文字が大きく変化する
+
+
 </script>
 </body>
 </html>

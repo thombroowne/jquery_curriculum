@@ -24,8 +24,23 @@
     </div>
     <script src="../../common/js/jquery.js"></script>
     <script>
+
+    $(function() {
+      $('.nav').children('li').click(function(){
+        var index = $(this).index();
+        var contents = $('.contents').children('li');
+        contents.addClass('is-hidden');
+        contents.eq(index).removeClass('is-hidden');
+      });
+    });
+// navの小li要素であるliをクリックして、contents内の小要素であるli要素を表示させたいのでindex()を使う。
+// index()は特定の要素のインデックス番号を取得することができるメソッド
+//addclassでクラス属性を追加
+//removeClass()は、HTML要素の「class属性」に付与されたクラスを削除することができるメソッド
+//「eq()」は、複数のHTML要素の中からインデックス番号を指定することで特定の要素だけを取得できます。
+
       // 今回やるのはタブメニューです。
-      // navの小要素であるliをクリックして、contents内の小要素であるli要素を表示させる。
+      // navの小li要素であるliをクリックして、contents内の小要素であるli要素を表示させる。
       // .index() 要素のindexを取得します。
       // .eq() 引数に応じたindexの要素を指定します。
       // .addClass() クラスを追加します。
@@ -33,4 +48,3 @@
     </script>
   </body>
 </html>
-
