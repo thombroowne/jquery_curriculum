@@ -125,25 +125,31 @@ $('#q6').click(function() {
 // 第7問  id='q7'の子要素をクリックしたら、その要素のインデックス（何番目か）をconsole.log()とalert()を用いて表示させよ。
 
   $('#q7').find('li').click(function() {
+    //id='q7'の子要素（li）をクリックした時にidq7の中にあるliのインデックスを取得
     var targetNum = $(this).index();
+    //var 変数targetNumにid=q7の要素をjQueryオブジェクトとして変数targetnumという名前の変数に代入しています。
+    //this q7の中のliという要素を指している。liのインデックスを取得。注意0番スタート
     console.log(targetNum);
+    //取得インデックス番号をconsoleで表示
     alert(targetNum);
+    //webサイト側からメッセージが表示させる機能
+    //取得したインデックス番号を表示させる
   });
 //「find()」は、対象となる要素から下にある階層をすべて辿って目的の「子要素」を取得することができるメソッドです
 // 対象要素.find( 目的の要素 ) 】のように引数へ取得したい要素のタグ・属性を指定します。
-//子孫要素…つまり「liタグ」が見つかるまでどんどん階層下を辿って検出できるという点です
-//alert(‘表示させたい文字列、値’);
 
 // 第8問  id='q8'の要素をhoverしたらlargeというクラスを付与し、hoverが外れたら、クラスを削除せよ。
 $('#q8').hover(function() {
+  //hover() id=q8にカーソルを持っていくと動く
+  //hoverカーソルを持っていくと何かしらの処理をする
   $(this).addClass('large');
+  //id=q8指していて,div class="btn"にadd classとういうメソッドでLargeを追加
+  //classに設定されているCSSによって変化
 }, function() {
   $(this).removeClass('large');
+  //
 });
 
-//hover() は特定のHTML要素内にマウスカーソルが重なっているかどうかを判断することができます。
-//【 対象要素.hover( 関数１, 関数２ ) 】のように引数へ関数を指定
-//「関数１」が対象要素とマウスカーソルが重なった時の処理で、「関数２」が離れた時の処理を記述
 //「addClass(’large’)」と記述することでclass属性を追加することができる
 //「removeClass()」は、HTML要素の「class属性」に付与されたクラスを削除することができるメソッド
 
@@ -152,6 +158,7 @@ $('#q8').hover(function() {
 // 第9問  id='q9'の要素をクリックしたらこの要素に設定してあるdata属性をconsoleに表示せよ。
 $('#q9').click(function() {
   var text = $(this).data('text');
+  //id=q9 date-textの値を取得。data('text')は、jqueyという文字列をコンソールで表示
   console.log(text);
 });
 
@@ -160,6 +167,8 @@ $('#q9').click(function() {
   $('#q10').find('li').click(function() {
     var num = $(this).index();
     $('#q11').find('li').eq(num).addClass('large');
+  //q11の中にあるliの要素のインデックス番号をEQで指定してその要素を指定している。
+  //指定したらq10とq11のliのインデックス番号に、等しい要素に、add classとういうメソッドでLargeを追加
   });
 
 });

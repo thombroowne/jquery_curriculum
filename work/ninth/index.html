@@ -20,17 +20,17 @@
       url: './data.json'
     })
     .done(function(data) {
-      console.log(data)
+
       var data =JSON.parse(data);//JSONオブジェクトをパースするメソッド
-       console.log(data);
+
 
         var list=""
         $.each(data.colorsArray, function(index,value){
-          console.log(index, value);
+
             // $('.colorList').html('<li class="colorList__item"> '+' <p class="colorList__title" style="background-color:'+value.hexValue+';"> '+ value.colorName +' </p> '+' </li>');
             list += '<li class="colorList__item"> '+' <p class="colorList__title" style="background-color:'+value.hexValue+';"> '+ value.colorName +' </p> '+' </li>'
         });
-        console.log(list)
+
          $('.colorList').html(list);
       });
       // [使うメソッド]

@@ -45,7 +45,6 @@
 
       $('.menu').children('.menu__btn').click(function() {
            var placeType = $(this).data('scroll-place-type'); //メニューのdata属性を取得
-           var menuHeight = $('.menu').height(); //メニューの高さを取得、あとでこの分を引かないと、メニューとタイトルが被ってしまう
            var toPlace = $('.contents').children('.title'); //ここも変数化したかっただけ
            var toPlaceLength = $('.contents').children('.title').length; //コンテンツ内の要素数を取得
            for (var i = 0; i < toPlaceLength; i++) {

@@ -88,16 +88,16 @@
     $(".select").change(function(){
       var list = $("option:selected").val();
       $.each($(".list").children("li"), function(){
-       var type = $(".list").children("li").data("category-type");
-       consol.log(list,type)
+       var type = $(this).data("category-type");
+       console.log(list,type)
        if(list === type){
-         $(".list").children("li").show();
-
+         $(this).show();
+//thisでulないの要素を一つずつ取得
        }
        if(list !== type){
-         $(".list").children("li").hide();
+         $(this).hide();
          }
-//==型を比較しない。文字列型（あいう、、）、数値型（１００、２００）
+//==型を比較しない。文字列型（あいう、、
      });
    });
       // 今回やるのはソート機能です。
