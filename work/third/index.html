@@ -25,14 +25,15 @@
     <script src="../../common/js/jquery.js"></script>
     <script>
 
-    $(function() {
+   $(function() {
       $('.nav').children('li').click(function(){
         var index = $(this).index();
+        console.log($(this));
         var contents = $('.contents').children('li');
-        contents.addClass('is-hidden');
-        contents.eq(index).removeClass('is-hidden');
+         contents.addClass('is-hidden');
+         contents.eq(index).removeClass('is-hidden');
       });
-    });
+   });
 // navの小li要素であるliをクリックして、contents内の小要素であるli要素を表示させたいのでindex()を使う。
 // index()は特定の要素のインデックス番号を取得することができるメソッド
 //addclassでクラス属性を追加

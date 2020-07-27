@@ -21,13 +21,16 @@
     </div>
     <script src="../../common/js/jquery.js"></script>
     <script>
-    $(".modal-show").click(function () {
-    $(".modal").fadeIn("slow");
+    $(function() {
+      $(".modal-show").click(function () {
+        $(".modal").fadeIn("slow");
+      });
+
+      $(".modal-close").click(function () {
+        $(".modal").fadeOut("slow");
+      });
     });
 
-    $(".modal-close").click(function () {
-    $(".modal").fadeOut("slow");
-    });
 //引数で時間の指定をしている。
 
       // 今回やるのはモーダルです。

@@ -30,33 +30,36 @@
    var slideWidth = slide.width(); //要素の幅を取得
    var slideLength = slide.length; //要素の数を取得
    var slideIndex = slide.index(); //要素のindexを取得する
+   console.log(slideIndex);
    var slideList = []; //空の配列の作成　
    for (var i = 0; i < slideLength; i++) {
        slideList[i] = slideWidth * (slideIndex + i); //画像のそれぞれのpositionを配列に格納してる
    }
+   console.log(slideList);
+
 
    $('.slider-ctrl-btn').click(function () {
-       var selector = $(this).data('ctrl'); //prevかnextが押されたらそのdata属性を取得する為にdataメソッドを使用
+       var selector = $(this).data('ctrl');
+       console.log(selector); //prevかnextが押されたらそのdata属性を取得する為にdataメソッドを使用
        if (selector === 'next') { //nextをクリックした際の挙動
            if (slideIndex >= slideLength - 1) {
                slideIndex = 0; //画像が右端まで来たら、一番左の画像を表示したいので、indexの指定を0にしてあげる。
            } else {
                slideIndex += 1; //スライドが途中なら1を足す
            }
-           $('.slider-list').animate({
-               left: -slideList[slideIndex] //先ほど配列に入れたpositionをindexで指定して移動させる
-           }, 500); //第二引数に指定したm秒で移動する
+
        } else if (selector === 'prev') {
            if (slideIndex <= 0) {
                slideIndex = slideLength - 1;  //要素の総数から1を引いた数。indexが3までしかないから
            } else {
                slideIndex -= 1;  //こちらは左に動かすので1を引く
            }
-           $('.slider-list').animate({
-               left: -slideList[slideIndex]
-           }, 500);
        }
-   });
+       $('.slider-list').animate({
+           left: -slideList[slideIndex]
+       }, 500);
+   });//先ほど配列に入れたpositionをindexで指定して移動させる
+   //第二引数に指定したm秒で移動する
 //クリックした時に画像をスライドさせたい
 //まずwidth,lengthで要素の幅、要素の数を取得
 //画像のpositionを取得するために、全部の要素の合計の幅を取得してる?? なぜ、slideWidth * slideLength掛け算しているのか？

@@ -84,22 +84,31 @@
     </div>
     <script src="../../common/js/jquery.js"></script>
     <script>
-
-    $(".select").change(function(){
-      var list = $("option:selected").val();
-      $.each($(".list").children("li"), function(){
-       var type = $(this).data("category-type");
-       console.log(list,type)
-       if(list === type){
-         $(this).show();
-//thisでulないの要素を一つずつ取得
+  $(function() {
+     $(".select").change(function() {
+       var val = $(this).val();
+       // if(1 == "1")
+       if(val === "all"){
+          $('.list > li').show();
+         // $('.list > li').each(function(index, element){
+         //   $(element).show();
+         // });
+       } else {
+         $('.list > li').each(function(index, element){
+           if($(element).data("category-type") === val){
+             $(element).show();
+           }else{
+             $(element).hide();
+           }
+         });
        }
-       if(list !== type){
-         $(this).hide();
-         }
-//==型を比較しない。文字列型（あいう、、
-     });
-   });
+     })
+    });
+  //changeメソッドを使ってプルダウンメニューを切り替えたら、選択したvalue値を出力している。
+  //選択したvalue値を変数に格納、リストに入れている、$("option:selected")←17~25行まで
+  //eachメソッドを使ってリストクラスの子要素のliを繰り返しイフ文を使って比較してあってたら
+  //showで見せてhideで隠す
+  //$(this)←listの子要素のli.data("category-type");data属性の値を取得
       // 今回やるのはソート機能です。
       // selectボックスをクリックして言語を選び、その言語と関係のあるリストだけが表示されるプログラムです。
       // [処理の流れ]

@@ -43,37 +43,51 @@
       // .fadeIn() 要素をフェードインさせる。
       // .fadeOut() 要素をフェードアウトさせる。
 
-      $('.menu').children('.menu__btn').click(function() {
-           var placeType = $(this).data('scroll-place-type'); //メニューのdata属性を取得
-           var toPlace = $('.contents').children('.title'); //ここも変数化したかっただけ
-           var toPlaceLength = $('.contents').children('.title').length; //コンテンツ内の要素数を取得
-           for (var i = 0; i < toPlaceLength; i++) {
-             var toPlaceText = toPlace[i];
-             var toPlaceType = $(toPlaceText).data('scroll-place-type'); //data属性を取得
-             if (placeType === toPlaceType) { //menuとcontents.titleのdata属性を比較
-                 var position = $(toPlaceText).offset().top; //一致している時に、contentsのtitle要素のtopの位置を取得
-               $('html, body').animate({
-                   //先ほど取得した高さからメニューバーの高さを引いた位置にスクロールする様に設定
-                   scrollTop: position
-               });
-             }
+      // $('.menu').children('.menu__btn').click(function() {
+      //      var placeType = $(this).data('scroll-place-type'); //メニューのdata属性を取得
+      //      var toPlace = $('.contents').children('.title'); //ここも変数化したかっただけ
+      //      console.log(toPlace);
+      //      var toPlaceLength = $('.contents').children('.title').length; //コンテンツ内の要素数を取得
+      //      for (var i = 0; i < toPlaceLength; i++) {
+      //        var toPlaceText = toPlace[i];
+      //        var toPlaceType = $(toPlaceText).data('scroll-place-type'); //data属性を取得
+      //        if (placeType === toPlaceType) { //menuとcontents.titleのdata属性を比較
+      //            var position = $(toPlaceText).offset().top; //一致している時に、contentsのtitle要素のtopの位置を取得
+      //          $('html, body').animate({
+      //              //先ほど取得した高さからメニューバーの高さを引いた位置にスクロールする様に設定
+      //              scrollTop: position
+      //          });
+      //        }
+      //      }
+      //    });
+      $('.menu__btn').click(function() {
+         var speed = 500;
+         var menuData = $(this).data('scroll-place-type');
+         console.log(menuData);
+         $('.title').each(function(index, element) {
+           if($(element).data("scroll-place-type") === menuData) {
+             // var titleData = $(element).data('scroll-place-type');
+             // console.log(titleData);
+             var position = $(element).offset().top;
+             console.log(position);
+             $('html,body').animate({scrollTop:position},speed,"swing");
            }
          });
+       });
 
-         var topButton = $('.scrollTopBtn'); //変数化
          $(window).scroll(function() { //画面をスクロールしたら発火する
            if ($(this).scrollTop() > 100) { //100px分スクロールしたら
-               topButton.fadeIn(); //desplay: none指定されてるscrollTopBtnを表示させる
+               $(".scrollTopBtn").fadeIn(); //desplay: none指定されてるscrollTopBtnを表示させる
            } else {
-               topButton.fadeOut(); //スクロール幅が100px未満なら非表示にする
+               $(".scrollTopBtn").fadeOut(); //スクロール幅が100px未満なら非表示にする
            }
          });
 
-         topButton.click(function() { //topScrollbtnを押した際の挙動
+         $(".scrollTopBtn").click(function() { //topScrollbtnを押した際の挙動
              $('body, html').animate({
                  scrollTop: 0 //ページのトップへ移動させる
              }, 500); //ここの第二引数も適当なんで変えて
-             return false; //コピペだからここだけ正直意味不明です、調べてみて...
+             //コピペだからここだけ正直意味不明です、調べてみて...
          });
 
     </script>

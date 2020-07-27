@@ -25,7 +25,7 @@
 
       var text_max = 30;
       //text_maxに文字数を代入　入力する上限を設定してます
-      $("input").on("keyup",function(){
+      $(".input").on("keyup",function(){
 
       //val()で文字を取得レングスで文字数を取得
 　　　 //lengthはプロパティであり、メソッドではない
@@ -38,7 +38,7 @@
         //KeyDown イベントは、実行中のフォームまたはそのフォーム上のコントロールにフォーカスがある状態でキーを押したときに発生します。
         //キーを離すまで KeyDown イベントと KeyPress イベントが交互に発生し、キーを離すと KeyUp イベントが発生します。
         //キーボードで入力していると処理が走る。
-
+        //this inputclass
 
         if(countdown < 0){
             $(".rest-count").addClass('red')

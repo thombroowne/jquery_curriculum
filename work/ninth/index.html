@@ -17,11 +17,12 @@
     <script>
 
     $.ajax({
-      url: './data.json'
+      url: 'data.json',
+      dataType: 'json'
     })
     .done(function(data) {
 
-      var data =JSON.parse(data);//JSONオブジェクトをパースするメソッド
+      // var data =JSON.parse(data);//JSONオブジェクトをパースするメソッド
 
 
         var list=""

@@ -166,6 +166,7 @@ $('#q9').click(function() {
 
   $('#q10').find('li').click(function() {
     var num = $(this).index();
+    console.log($('#q11').find('li'));
     $('#q11').find('li').eq(num).addClass('large');
   //q11の中にあるliの要素のインデックス番号をEQで指定してその要素を指定している。
   //指定したらq10とq11のliのインデックス番号に、等しい要素に、add classとういうメソッドでLargeを追加
