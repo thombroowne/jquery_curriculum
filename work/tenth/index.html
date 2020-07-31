@@ -66,72 +66,77 @@
       //  </div>
       // </li>
   $(function() {
-      var pageNum = 1;
-      var prevSearchWord = "";
-      $('#js-search-button').on('click', function() {
-        removeErrormessage();
-        searchBook();
-      });
-      function searchBook() {
-        var searchWord = $('#js-search-word').val();
-        // console.log(prevSearchWord);
-        // console.log(searchWord);
-         // prevSearchWord = searchWord;
-        if (prevSearchWord === searchWord) {
-          pageNum++;
-        } else {
-          $('.lists').empty();
-          pageNum = 1;
-        }
-        prevSearchWord = searchWord;
-        $.ajax({
-          url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
-          type: 'GET',
-          datatype: 'json',
-          data: {
-            keyword: searchWord,
-            applicationId: '1019399324990976605',
-            booksGenreId: '001',
-            hits: 20,
-            page:pageNum,
-          },
-        }).done(function(data) {
-          // console.log(data);
-          var dataAcquisition = data.Items;
-          var itemsSearchbox = "";
-          if (data.count > 0) {
-            $.each(dataAcquisition, function(i,item) {
-               itemsSearchbox += '<li class="lists__item">' +
-                            '<div class="lists__item__inner">' +
-                              '<a href="' + dataAcquisition[i].Item.itemUrl + '" class="lists__item__link" target="_blank">' +
-                                '<img src="' + dataAcquisition[i].Item.largeImageUrl + '" class="lists__item__img" alt="' + dataAcquisition[i].Item.title + '">' +
-                                  '<p class="lists__item__detail">作品名： ' + dataAcquisition[i].Item.title + '</p>' +
-                                  '<p class="lists__item__detail">作者  ： ' + dataAcquisition[i].Item.author + '</p>' +
-                                  '<p class="lists__item__detail">出版社： ' + dataAcquisition[i].Item.publisherName + '</p>' +
-                              '</a>' +
-                            '</div>' +
-                          '</li>';
-                           console.log(i,item);
-            });
-            $('.lists').prepend(itemsSearchbox);
-          } else {
-            var emptyText = '<div class="message">検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。</div>';
-            $('.lists').before(emptyText);
-          }
-        }).fail(function(data) {//レスポンス結果が失敗処理はfaileメソッドで受け取る
-          if (data.readyState === 0) {//dataとreadyState(ドキュメントの読み込み状況を示す文字列を返すプロパティ)(プロパティとは、オブジェクトのもつ情報URLとか))
-            $('.lists').before('<div class="message">インターネットの接続状況を確認してください。</div>');//接続ができなかった時beforeメソッドを使い文字追
-          } else {
-            var errorText = data.responseJSON.error_description;
-            $('.lists').before('<div class="message">' + errorText + '</div>');
-          }
-        });
-      }
-      function removeErrormessage() {
-          $('.message').remove();
-      }
-    });
+       var pageNum = 1;
+       var prevSearchWord = "";
+       $('#js-search-button').on('click', function() {
+         removeErrormessage();
+         searchBook();
+       });
+       function searchBook() {
+         var searchWord = $('#js-search-word').val();
+         // console.log(prevSearchWord);
+         // console.log(searchWord);
+          // prevSearchWord = searchWord;
+         if (prevSearchWord === searchWord) {
+           pageNum++;
+         } else {
+           $('.lists').empty();
+           pageNum = 1;
+         }
+         prevSearchWord = searchWord;
+         $.ajax({
+           url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
+           type: 'GET',
+           datatype: 'json',
+           data: {
+             keyword: searchWord,
+             applicationId: '1019399324990976605',
+             booksGenreId: '001',
+             hits: 20,
+             page:pageNum,
+           },
+         }).done(function(data) {
+           // console.log(data);
+            itemsRetrieveBoxs(data);
+          }).fail(function(data) {
+            if (data.readyState === 0) {
+              $('.lists').before('<div class="message">インターネットの接続状況を確認してください。</div>');
+　　　　　　　}
+          });
+  　　　　　}
+          function itemsRetrieveBoxs(data){
+           var dataSendBoxs = data.Items;
+           var itemsFetchBoxs = "";
+           if (data.count > 0) {
+             $.each(dataSendBoxs, function(i,item) {
+                itemsFetchBoxs += '<li class="lists__item">' +
+                              　　 '<div class="lists__item__inner">' +
+                                  '<a href="' + dataSendBoxs[i].Item.itemUrl + '" class="lists__item__link" target="_blank">' +
+                                  '<img src="' + dataSendBoxs[i].Item.largeImageUrl + '" class="lists__item__img" alt="' + dataSendBoxs[i].Item.title + '">' +
+                                  '<p class="lists__item__detail">作品名： ' + dataSendBoxs[i].Item.title + '</p>' +
+                                  '<p class="lists__item__detail">作者  ： ' + dataSendBoxs[i].Item.author + '</p>' +
+                                  '<p class="lists__item__detail">出版社： ' + dataSendBoxs[i].Item.publisherName + '</p>' +
+                               '</a>' +
+                             '</div>' +
+                           '</li>';
+                            console.log(i,item);
+             });
+             $('.lists').prepend(itemsFetchBoxs);
+           } else {
+             var emptyText = '<div class="message">検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。</div>';
+             $('.lists').before(emptyText);
+           }
+         }
 
+           // } else {
+           //   var errorText = data.responseJSON.error_description;
+           //   $('.lists').before('<div class="message">' + errorText + '</div>');
+           // }
+
+       function removeErrormessage() {
+           $('.message').remove();
+       }
+     });
     </script>
   </body>
 </html>
