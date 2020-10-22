@@ -98,10 +98,11 @@
          }).done(function(data) {
            // console.log(data);
             itemsRetrieveBoxs(data);
-          }).fail(function(data) {
-            if (data.readyState === 0) {
+          }).fail(function(jqXHR, textStatus, errorThrown) {
+            // if (data.readyState === 0) {
               $('.lists').before('<div class="message">インターネットの接続状況を確認してください。</div>');
-　　　　　　　}
+              console.log(jqXHP.status, jqXHP.statusText, textStatus, errorThrown);　　　　　　
+
           });
   　　　　　}
           function itemsRetrieveBoxs(data){
